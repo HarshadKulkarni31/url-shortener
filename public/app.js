@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8001';
+const API_BASE = window.location.origin;
 let currentShortId = null;
 
 // ─── Shorten URL ────────────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ async function shortenUrl() {
     copyBtn.classList.remove('copied');
 
   } catch (err) {
-    errorMsg.textContent = '⚠️ Could not connect to server. Is it running on port 8001?';
+    errorMsg.textContent = '⚠️ Could not connect to server. Please try again.';
   } finally {
     btn.classList.remove('loading');
     btn.querySelector('.btn-text').textContent = 'Shorten';
@@ -100,7 +100,7 @@ async function viewAnalytics() {
   const visitsList = document.getElementById('visits-list');
   const modalShortId = document.getElementById('modal-short-id');
 
-  modalShortId.textContent = `localhost:8001/${currentShortId}`;
+  modalShortId.textContent = `${window.location.host}/${currentShortId}`;
   totalClicks.textContent = '...';
   visitsList.innerHTML = '<div class="no-visits">Loading...</div>';
   overlay.classList.add('show');
