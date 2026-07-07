@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sniply — Short URLs, Big Impact</title>
+  <meta name="description" content="Sniply is a powerful URL shortener. Shorten links instantly and track analytics in real time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-icon">✂️</span>
+        <span class="logo-text">Sniply</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#analytics-section">Analytics</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">⚡ Fast & Free URL Shortener</div>
+      <h1 class="hero-title">
+        Shorten. Share.<br />
+        <span class="gradient-text">Track Everything.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Transform long, ugly URLs into clean, powerful short links in seconds.
+        Get real-time analytics on every click.
+      </p>
+
+      <!-- URL SHORTENER CARD -->
+      <div class="shortener-card" id="shortener">
+        <div class="card-label">Shorten a long URL</div>
+        <div class="input-row">
+          <input
+            type="url"
+            id="url-input"
+            class="url-input"
+            placeholder="Paste your long URL here..."
+            autocomplete="off"
+          />
+          <button class="shorten-btn" id="shorten-btn" onclick="shortenUrl()">
+            <span class="btn-text">Shorten</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </div>
+        <div class="error-msg" id="error-msg"></div>
+
+        <!-- RESULT BOX -->
+        <div class="result-box" id="result-box">
+          <div class="result-inner">
+            <div class="result-left">
+              <div class="result-label">Your short link is ready!</div>
+              <a class="result-link" id="result-link" href="#" target="_blank"></a>
+            </div>
+            <div class="result-actions">
+              <button class="copy-btn" id="copy-btn" onclick="copyLink()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy
+              </button>
+              <button class="analytics-btn" id="analytics-btn" onclick="viewAnalytics()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Analytics
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Links Shortened</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Free Forever</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">Real-time</span>
+          <span class="stat-label">Click Analytics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="features" id="features">
+    <div class="section-inner">
+      <div class="section-badge">Why Sniply?</div>
+      <h2 class="section-title">Everything you need to manage links</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Instant Shortening</h3>
+          <p>Generate short links in milliseconds. No sign-up required to get started.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Click Analytics</h3>
+          <p>Track every click with timestamps. Know when your audience engages most.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Reliable & Secure</h3>
+          <p>Built on Node.js and MongoDB for fast, secure, and reliable redirects.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Clean Short Links</h3>
+          <p>Get compact, shareable URLs that look great in any message or post.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">📊 Link Analytics</div>
+          <div class="modal-subtitle" id="modal-short-id"></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="analytics-summary">
+          <div class="summary-card">
+            <div class="summary-number" id="total-clicks">0</div>
+            <div class="summary-label">Total Clicks</div>
+          </div>
+        </div>
+        <div class="visits-header">Click History</div>
+        <div class="visits-list" id="visits-list">
+          <div class="no-visits">No visits yet. Share your link to get started!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="analytics-section">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span>✂️</span>
+        <span>Sniply</span>
+      </div>
+      <p class="footer-tagline">Short links. Big impact.</p>
+      <p class="footer-copy">© 2025 Sniply. Built with ❤️ using Node.js & MongoDB.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
