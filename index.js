@@ -6,12 +6,12 @@ const urlRoutes= require('./routes/url');
 const URL= require('./models/url');
 
 
-connectToMongoDB("mongodb://localhost:27017/URLShortener")
+connectToMongoDB(process.env.MONGO_URL || "mongodb://localhost:27017/URLShortener")
 .then(()=> console.log("Connected to MongoDB"))
 .catch((err)=> console.error("MongoDB connection failed:", err));
 
 const app= express();
-const port= 8001;
+const port= process.env.PORT || 8001;
 
 app.use(express.json());
 app.use((req, res, next) => {
