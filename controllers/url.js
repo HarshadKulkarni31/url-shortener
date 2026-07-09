@@ -1,5 +1,5 @@
 const shortid = require('shortid');
-const URL = require('../models/url');
+const UrlModel = require('../models/url');
 
 // ─── Blocked URL schemes ──────────────────────────────────────────────────────
 const BLOCKED_SCHEMES = ['javascript:', 'file:', 'data:', 'vbscript:', 'blob:'];
@@ -54,7 +54,7 @@ async function HandleGenerateNewShortUrl(req, res) {
     }
 
     const shortId = shortid();
-    await URL.create({
+    await UrlModel.create({
       shortId,
       redirectURL: originalUrl,
       visitHistory: [],
@@ -76,7 +76,7 @@ async function HandleGetAnalytics(req, res) {
       return res.status(400).json({ error: 'Short ID is required.' });
     }
 
-    const result = await URL.findOne({ shortId });
+    const result = await UrlModel.findOne({ shortId });
 
     if (!result) {
       return res.status(404).json({ error: 'Short URL not found.' });
