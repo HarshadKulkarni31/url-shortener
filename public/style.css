@@ -71,7 +71,12 @@ body {
   text-decoration: none;
 }
 
-.logo-icon { font-size: 1.5rem; }
+.logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 
 .logo-text {
   font-size: 1.4rem;
@@ -629,6 +634,13 @@ body {
   font-weight: 800;
   color: var(--light);
   margin-bottom: 0.5rem;
+}
+
+.footer-logo-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .footer-tagline {
