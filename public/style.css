@@ -74,8 +74,7 @@ body {
 .logo-img {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .logo-text {
@@ -639,8 +638,7 @@ body {
 .footer-logo-img {
   width: 28px;
   height: 28px;
-  border-radius: 6px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .footer-tagline {
