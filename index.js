@@ -8,7 +8,7 @@ const { connectToMongoDB } = require('./connect');
 const urlRoutes = require('./routes/url');
 const URL = require('./models/url');
 
-// ─── Connect to MongoDB ───────────────────────────────────────────────────────
+// ----- Connect to MongoDB --------------------------------------------------------
 connectToMongoDB(process.env.MONGO_URL || 'mongodb://localhost:27017/URLShortener')
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => {
@@ -19,14 +19,14 @@ connectToMongoDB(process.env.MONGO_URL || 'mongodb://localhost:27017/URLShortene
 const app = express();
 const port = process.env.PORT || 8001;
 
-// ─── Security Headers (Helmet) ────────────────────────────────────────────────
+// ----- Security Headers (Helmet) ------------------------------------------------
 app.use(
   helmet({
     contentSecurityPolicy: false, // Keep false so UI loads correctly
   })
 );
 
-// ─── Rate Limiting ────────────────────────────────────────────────────────────
+// ----- Rate Limiting -----------------------------------------------------------
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute window
   max: 20,                  // Max 20 requests per IP per minute
@@ -36,21 +36,21 @@ const limiter = rateLimit({
 });
 app.use('/url', limiter); // Apply only to API routes
 
-// ─── Middleware ───────────────────────────────────────────────────────────────
+// ----- Middleware --------------------------------------------------------------
 app.use(express.json({ limit: '10kb' })); // Limit request body size
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ─── CORS ─────────────────────────────────────────────────────────────────────
+// ----- CORS -----------------------------------------------------------
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+// ----- Routes -----------------------------------------------------------
 app.use('/url', urlRoutes);
 
-// ─── Redirect Short URL ───────────────────────────────────────────────────────
+// ----- Redirect Short URL -----------------------------------------------------------
 app.get('/:shortId', async (req, res) => {
   try {
     const shortId = req.params.shortId;
@@ -69,7 +69,7 @@ app.get('/:shortId', async (req, res) => {
   }
 });
 
-// ─── Global Error Handler ─────────────────────────────────────────────────────
+// ----- Global Error Handler ----------------------------------------------------
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error.' });

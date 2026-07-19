@@ -1,7 +1,7 @@
-const shortid = require('shortid');
-const UrlModel = require('../models/url');
+const shortid = require('shortid');               //Imports the shortid library for generating unique short IDs
+const UrlModel = require('../models/url');        // Imports the URL Mongoose model from the models directory
 
-// ─── Blocked URL schemes ──────────────────────────────────────────────────────
+// ----- Blocked URL schemes -----------------------------------------------------------
 const BLOCKED_SCHEMES = ['javascript:', 'file:', 'data:', 'vbscript:', 'blob:'];
 
 function isValidUrl(url) {
@@ -32,7 +32,7 @@ function isValidUrl(url) {
   }
 }
 
-// ─── Shorten URL ──────────────────────────────────────────────────────────────
+// ----- Shorten URL -----------------------------------------------------------
 async function HandleGenerateNewShortUrl(req, res) {
   try {
     const body = req.body || {};
@@ -67,7 +67,7 @@ async function HandleGenerateNewShortUrl(req, res) {
   }
 }
 
-// ─── Get Analytics ────────────────────────────────────────────────────────────
+// ----- Get Analytics -----------------------------------------------------------
 async function HandleGetAnalytics(req, res) {
   try {
     const shortId = req.params.shortId;

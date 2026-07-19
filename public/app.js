@@ -1,7 +1,7 @@
-const API_BASE = window.location.origin;
+const API_BASE = window.location.origin;                    //Sets API base URL to current origin 
 let currentShortId = null;
 
-// ─── Shorten URL ────────────────────────────────────────────────────────────
+// ----- Shorten URL -----------------------------------------------------------
 async function shortenUrl() {
   const input = document.getElementById('url-input');
   const btn = document.getElementById('shorten-btn');
@@ -10,7 +10,7 @@ async function shortenUrl() {
   const resultLink = document.getElementById('result-link');
 
   const url = input.value.trim();
-  errorMsg.textContent = '';
+  errorMsg.textContent = '';                    //Clears previous error message
 
   // Basic validation
   if (!url) {
@@ -66,7 +66,7 @@ async function shortenUrl() {
   }
 }
 
-// ─── Copy Link ───────────────────────────────────────────────────────────────
+// ----- Copy Link -----------------------------------------------------------
 async function copyLink() {
   const link = document.getElementById('result-link').textContent;
   const btn = document.getElementById('copy-btn');
@@ -91,7 +91,7 @@ async function copyLink() {
   }
 }
 
-// ─── View Analytics ──────────────────────────────────────────────────────────
+// ----- View Analytics -----------------------------------------------------------
 async function viewAnalytics() {
   if (!currentShortId) return;
 
@@ -142,12 +142,12 @@ async function viewAnalytics() {
   }
 }
 
-// ─── Close Modal ─────────────────────────────────────────────────────────────
+// ----- Close Modal -----------------------------------------------------------
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('show');
 }
 
-// ─── Helper: Time Ago ────────────────────────────────────────────────────────
+// ----- Helper: Time Ago -----------------------------------------------------------
 function timeAgo(timestamp) {
   const diff = Date.now() - timestamp;
   const seconds = Math.floor(diff / 1000);
@@ -160,12 +160,12 @@ function timeAgo(timestamp) {
   return `${days}d ago`;
 }
 
-// ─── Enter key support ───────────────────────────────────────────────────────
+// ----- Enter key support -----------------------------------------------------------
 document.getElementById('url-input').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') shortenUrl();
 });
 
-// ─── Escape key closes modal ─────────────────────────────────────────────────
+// ----- Escape key closes modal -----------------------------------------------------------
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
 });
